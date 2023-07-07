@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playground</title>
+    <style>
+        /* CSS RESET and outline */
+        * {
+            padding:0;margin:0;
+            outline: 1px solid red; 
+        }
+        .blue-box {
+            background-color:midnightblue;
+            height: 100px;
+            width: 100px;
+            margin: 10px;
+            float: left;
+            color:aliceblue;
+            padding:5px;
+            display:flex;
+            align-items: center;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <!-- lvl 1 -->
+    <!-- <div class="blue-box"></div>
+    <div class="blue-box"></div>
+    <div class="blue-box"></div> -->
+
+    <!-- Lvl2 -->
+    {% for _ in range(x) %}
+        <div class="blue-box">lil bit o code n test</div>
+    {% endfor %}
+</body>
+</html>
