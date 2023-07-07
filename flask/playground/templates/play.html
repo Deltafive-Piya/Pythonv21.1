@@ -6,14 +6,13 @@
         /* CSS RESET and outline */
         * {
             padding:0;margin:0;
-            outline: 1px solid red; 
+            /* outline: 1px solid red;  */
             font-family: monospace;
         }
         /* Container to format the page slightly... */
-        h1 {
+        .text-center {
             text-align: center;
         }
-
         .container {
             
             width:85%;
@@ -40,7 +39,7 @@
     </style>
 </head>
 <body>
-    <h1>Welucomu to my Dojo!</h1>
+    <h1 class="text-center">Welcomu to my Dojo!</h1>
 <!-- lvl 1 -->
 
     <!-- <div class="blue-box"></div>
@@ -48,8 +47,7 @@
     <div class="blue-box"></div> -->
 
 <!-- Lvl2 -->
-    <!-- Perform a loop, iterating x times, creating blue-box everytime ----------------------->
-    
+
     <!-- <div class="container">
         {% for _ in range(x) %}
             <div class="blue-box">lil bit o code n test</div>
@@ -59,7 +57,7 @@
 <!-- Lvl 3 -->
 
     <div class="container">
-        % for _ in range(x) %               
+        {% for _ in range(x) %}
             <div class="blue-box" style="background-color: {{ color }};">lil bit o code n test</div>
         {% endfor %}
 
