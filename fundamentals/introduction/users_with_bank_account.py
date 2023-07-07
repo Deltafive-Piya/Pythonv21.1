@@ -59,6 +59,5 @@ user1.display_user_info()
 
 
 
-
 # Sempai Bonus-Empty
 # Sensei Bonus-Empty
