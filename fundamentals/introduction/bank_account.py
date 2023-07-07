@@ -17,29 +17,68 @@
 
 
 class BankAccount:
+    accounts = []                                       # NINJA CHALLENGE- I needed to make the accounts list, so that i can pull all accounts in a batch
+
     def __init__(self, balance=0, interest_rate=0.01):
         self.balance = balance
         self.interest_rate = interest_rate
+        BankAccount.accounts.append(self)               #NINJA CHALLENGE- Adds self to accounts[]
 
     def deposit(self, deposit_amount):
         self.balance += deposit_amount
         print(f"Deposited: ${deposit_amount}")
 
     def withdrawal(self, withdrawl_amount):
-        if self.balance >= withdrawl_amount and withdrawl_amount <5000: #NO SCAMS AT MY BANK
+        #NO SCAMS AT MY BANK and you aint even that hot, Shot.
+        if self.balance >= withdrawl_amount and withdrawl_amount <5001: 
             self.balance -= withdrawl_amount
             print(f"Withdrew: ${withdrawl_amount}")
         else:
-            print("You broke, bye!")
+            print(f"${withdrawl_amount}? You aint that hot, Shot!")
 
     def display_account_info(self):
         print(f"Checking Balance: ${self.balance}")
 
-    def add_interest(self):
+    def yield_interest(self):
         interest = self.balance * self.interest_rate
         self.balance += interest
-        print(f"Interest added: ${self.interest}") # Courtesy display of insterest accumulated. 
+        # Courtesy display of insterest accumulated. 
+        print(f"Interest added: ${interest}") 
 
 
-checking1 = BankAccount()  # (Calling it "checking1")Fork the Bankaccount Class, use default values if the () is empty
-checking1.display_account_info() #Display the default value
+# USER ENGAGEMENT TEST----------------------------------------------------------------------------------------------------------------------
+print('test_checking_account log')
+test_checking_account = BankAccount(50)  # (Calling it "test_checking_account")Fork the Bankaccount Class, use default values if the () is empty
+test_checking_account.display_account_info() #Display the default value
+test_checking_account.withdrawal(100) # Withdrawl ATTEMPT -should fail
+test_checking_account.deposit(200)    # Deposit 200
+test_checking_account.withdrawal(100) # Withdrawl ATTEMPT -should pass
+test_checking_account.deposit(20000)    # Deposit 200
+test_checking_account.display_account_info() #Display the default value
+test_checking_account.withdrawal(10000) # Withdrawl ATTEMPT -should fail
+test_checking_account.withdrawal(5000) # Withdrawl ATTEMPT -should pass
+
+test_checking_account.yield_interest() # An interest cycle simulation
+test_checking_account.display_account_info() #Display the default value
+print('\n')
+
+
+# Checking 1 creation
+print('Checking 1 log')
+checking1 = BankAccount()
+# CHAINING- 3 deposits & 1 withdrawl & yield & display
+checking1.deposit(10); checking1.deposit(100); checking1.deposit(1000); checking1.withdrawal(1); checking1.yield_interest(); checking1.display_account_info()
+print('\n')
+
+#Checking 2 creation
+print('Checking 2 log')
+checking2 = BankAccount()
+checking2.deposit(2); checking2.deposit(20); checking2.withdrawal(2); checking2.withdrawal(3); checking2.withdrawal(4); checking2.withdrawal(5);checking2.yield_interest(); checking2.display_account_info()
+print('\n')
+
+#SUDO- Use CLASS_METHOD to print ALL BankAccount() instances
+print('ALL ACCOUNT LOG')
+def print_all_accounts():
+        for account in BankAccount.accounts:
+            account.display_account_info()
+print_all_accounts()                        #WELLLL.DO IT THEN.
