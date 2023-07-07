@@ -43,11 +43,30 @@ class BankAccount:
         interest = self.balance * self.interest_rate
         self.balance += interest
         # Courtesy display of insterest accumulated. 
-        print(f"Interest added: ${interest}") 
+        print(f"Thank you for banking with Barbie! Interest added: ${interest}") 
 
 
-# USER ENGAGEMENT TEST----------------------------------------------------------------------------------------------------------------------
-print('test_checking_account log')
+
+
+# Checking 1 creation---------------------------------------------------------------------------------------------------------------
+print('Checking 1 log')
+checking1 = BankAccount()
+# CHAINING- 3 deposits & 1 withdrawl & yield & display
+checking1.deposit(10); checking1.deposit(100); checking1.deposit(1000); checking1.withdrawal(1); checking1.yield_interest(); checking1.display_account_info()
+print('\n')
+
+#Checking 2 creation
+print('Checking 2 log')
+checking2 = BankAccount()
+checking2.deposit(2); checking2.deposit(20); checking2.withdrawal(2); checking2.withdrawal(3); checking2.withdrawal(4); checking2.withdrawal(5);checking2.yield_interest(); checking2.display_account_info()
+print('\n')
+
+
+
+
+
+# FUNCTION TEST----------------------------------------------------------------------------------------------------------------------
+print('FUNCTIONS test log')
 test_checking_account = BankAccount(50)  # (Calling it "test_checking_account")Fork the Bankaccount Class, use default values if the () is empty
 test_checking_account.display_account_info() #Display the default value
 test_checking_account.withdrawal(100) # Withdrawl ATTEMPT -should fail
@@ -62,23 +81,10 @@ test_checking_account.yield_interest() # An interest cycle simulation
 test_checking_account.display_account_info() #Display the default value
 print('\n')
 
-
-# Checking 1 creation
-print('Checking 1 log')
-checking1 = BankAccount()
-# CHAINING- 3 deposits & 1 withdrawl & yield & display
-checking1.deposit(10); checking1.deposit(100); checking1.deposit(1000); checking1.withdrawal(1); checking1.yield_interest(); checking1.display_account_info()
-print('\n')
-
-#Checking 2 creation
-print('Checking 2 log')
-checking2 = BankAccount()
-checking2.deposit(2); checking2.deposit(20); checking2.withdrawal(2); checking2.withdrawal(3); checking2.withdrawal(4); checking2.withdrawal(5);checking2.yield_interest(); checking2.display_account_info()
-print('\n')
-
-#SUDO- Use CLASS_METHOD to print ALL BankAccount() instances
+#SUDOMODE- Use CLASS_METHOD to print ALL BankAccount() instances---------------------------------------------------------------------
 print('ALL ACCOUNT LOG')
 def print_all_accounts():
         for account in BankAccount.accounts:
             account.display_account_info()
 print_all_accounts()                        #WELLLL.DO IT THEN.
+print('\n')
