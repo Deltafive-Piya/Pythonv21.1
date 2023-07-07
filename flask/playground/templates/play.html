@@ -8,18 +8,30 @@
             padding:0;margin:0;
             outline: 1px solid red; 
         }
-        .blue-box {
-            background-color:midnightblue;
-            height: 100px;
-            width: 100px;
-            margin: 10px;
-            float: left;
-            color:aliceblue;
-            padding:5px;
+        /* Container to format the page slightly... */
+        .container {
+            
+            width:85%;
+            min-height:1000px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding:15px;
             display:flex;
-            align-items: center;
-            font-family: monospace;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
         }
+            .blue-box {
+                background-color:midnightblue;
+                height: 100px;
+                width: 100px;
+                margin: 10px;
+                float: left;
+                color:aliceblue;
+                padding:5px;
+                display:flex;
+                align-items: center;
+                font-family: monospace;
+            }
     </style>
 </head>
 <body>
@@ -29,8 +41,10 @@
     <div class="blue-box"></div> -->
 
     <!-- Lvl2 -->
-    {% for _ in range(x) %}
-        <div class="blue-box">lil bit o code n test</div>
-    {% endfor %}
+    <div class="container">
+        {% for _ in range(x) %}
+            <div class="blue-box">lil bit o code n test</div>
+        {% endfor %}
+    </div>
 </body>
 </html>
