@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gamers.html</title>
+</head>
+<body>
+    <h1>Gamers List:</h1>         <!-- To Do------ css can go here -->
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>tag</th>
+                <th>Created_at</th>
+                <th>updated_at</th>
+                <th>clan_id</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <!-- Diji Loop Here -->
+            {% for gamers in gamers %}      <!-- For (table name) in (schema name) -->
+            <tr>
+                <td>{{gamers.f_name}}</td>
+                <td>{{gamers.l_name}}</td>
+                <td>{{gamers.tag}}</td>
+                <td>{{gamers.created_at}}</td>
+                <td>{{gamers.updated_at}}</td>
+                <td>{{gamers.clan_id}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- This will allow for the routing of new_gamer.html -->
+    <a href="/gamers/new">Add a Gamer</a>  
+    
+</body>
+</html>
