@@ -4,4 +4,4 @@ from flask_app.controllers import authors, books
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="localhost", port=5555, debug=True)

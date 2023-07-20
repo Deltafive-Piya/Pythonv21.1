@@ -47,7 +47,7 @@ class Book:
 
     @classmethod
     def unfavorited_books(cls, data):
-        query = "SELECT * FROM books WHERE books.id NOT IN (SELECT book_id FROM favorites WHERE author_id = %(id)s );"
+        query = "SELECT * FROM books WHERE books.id NOT IN (SELECT books_id FROM favorites WHERE authors_id = %(id)s );"
         results = connectToMySQL('books').query_db(query, data)
         books = []
         

@@ -28,13 +28,13 @@ def show_author(id):
     unfavorited_books_data = {
         "id": id
     }
-    return render_template('show_author.html', author=Author.get_by_id(author_data), unfavorited_books=Book.unfavorited_books(unfavorited_books_data))
+    return render_template('show_authors.html', author=Author.get_by_id(author_data), unfavorited_books=Book.unfavorited_books(unfavorited_books_data))
 
 @app.route('/join/book',methods=['POST'])
 def join_book():
     data = {
-        'author_id': request.form['author_id'],
-        'book_id': request.form['book_id']
+        'authors_id': request.form['authors_id'],
+        'books_id': request.form['books_id']
     }
     Author.add_favorite(data)
-    return redirect(f"/author/{request.form['author_id']}")
+    return redirect(f"/author/{request.form['authors_id']}")

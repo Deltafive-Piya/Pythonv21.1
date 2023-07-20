@@ -35,13 +35,13 @@ class Author:
 
     @classmethod
     def add_favorite(cls,data):
-        query = "INSERT INTO favorites (author_id,book_id) VALUES (%(author_id)s,%(book_id)s);"
+        query = "INSERT INTO favorites (author_id,book_id) VALUES (%(authors_id)s,%(books_id)s);"
         return connectToMySQL('books').query_db(query,data);
 
 
     @classmethod
     def get_by_id(cls,data):
-        query = "SELECT * FROM authors LEFT JOIN favorites ON authors.id = favorites.author_id LEFT JOIN books ON books.id = favorites.book_id WHERE authors.id = %(id)s;"
+        query = "SELECT * FROM authors LEFT JOIN favorites ON authors.id = favorites.authors_id LEFT JOIN books ON books.id = favorites.books_id WHERE authors.id = %(id)s;"
         results = connectToMySQL('books').query_db(query,data)
 
         # Creates instance of author object from row one
