@@ -28,7 +28,7 @@ class Book:
 
     @classmethod
     def get_by_id(cls,data):
-        query = "SELECT * FROM books LEFT JOIN favorites ON books.id = favorites.book_id LEFT JOIN authors ON authors.id = favorites.author_id WHERE books.id = %(id)s;"
+        query = "SELECT * FROM books.books LEFT JOIN books.favorites ON books.id = favorites.books_id LEFT JOIN books.authors ON authors.id = favorites.authors_id WHERE books.id = %(id)s;"
         results = connectToMySQL('books').query_db(query,data)
 
         book = cls(results[0])

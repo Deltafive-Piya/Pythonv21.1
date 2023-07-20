@@ -26,7 +26,7 @@ class Author:
 
     @classmethod
     def unfavorited_authors(cls,data):
-        query = "SELECT * FROM authors WHERE authors.id NOT IN ( SELECT author_id FROM favorites WHERE book_id = %(id)s );"
+        query = "SELECT * FROM authors WHERE authors.id NOT IN ( SELECT authors_id FROM favorites WHERE books_id = %(id)s );"
         authors = []
         results = connectToMySQL('books').query_db(query,data)
         for row in results:
@@ -43,11 +43,6 @@ class Author:
     def get_by_id(cls,data):
         query = "SELECT * FROM authors LEFT JOIN favorites ON authors.id = favorites.author_id LEFT JOIN books ON books.id = favorites.book_id WHERE authors.id = %(id)s;"
         results = connectToMySQL('books').query_db(query,data)
-
-        # EMPTY HANDLER Check IF AUTHORS HAVE NO BOOK
-        if not results:
-            # Return an empty Author instance without appending any books
-            return cls({'id': None, 'name': None, 'created_at': None, 'updated_at': None})
 
         # Creates instance of author object from row one
         author = cls(results[0])
