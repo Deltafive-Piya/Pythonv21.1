@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Show Dojo</title>
+</head>
+<body>
+    <div class="d-flex justify-content-around flex-wrap">
+        <div class="col-6">
+            <h2 class="text-center">{{ dojo.name }}'s Ninjas</h2>
+            <table class="table table-warning">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Weapon of Choice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ninja in dojo.ninjas %}
+                        <tr>
+                            <td>{{ ninja.first_name }}</td>
+                            <td>{{ ninja.last_name }}</td>
+                            <td>{{ ninja.age }}</td>
+                            <td>{{ ninja.weapon_of_choice }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <form action="/join/ninja" method="post" class="col-6">
+            <h2 class="text-info">Add Ninja to Dojo</h2>
+            <input type="hidden" name="dojo_id" value="{{ dojo.id }}">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" name="age" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="weapon_of_choice">Weapon of Choice:</label>
+                <input type="text" name="weapon_of_choice" class="form-control">
+            </div>
+            <input type="submit" value="Add Ninja" class="btn btn-primary">
+        </form>
+        <a href="/dojos">Return to: Dojos Main Page</a>
+    </div>
+</body>
+</html>

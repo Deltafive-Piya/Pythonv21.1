@@ -23,7 +23,8 @@ class Author:
     def save(cls,data):
         query = "INSERT INTO authors (name) VALUES (%(name)s);"
         return connectToMySQL('books').query_db(query,data)
-
+    
+    #This method runs the query for Authors Ninja bonus
     @classmethod
     def unfavorited_authors(cls,data):
         query = "SELECT * FROM authors WHERE authors.id NOT IN ( SELECT authors_id FROM favorites WHERE books_id = %(id)s );"

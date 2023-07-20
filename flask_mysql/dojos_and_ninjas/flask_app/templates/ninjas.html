@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Ninjas</title>
+</head>
+<body>
+    <div class="d-flex flex-wrap justify-content-around">
+        <form action="/create/ninja" method="post" class="col-6 p-3 bg-dark text-light">
+            <h2 class="text-center text-warning">New Ninja</h2>
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" name="age" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="dojo_id">Dojo:</label>
+                <select name="dojo_id" class="form-control">
+                    {% for dojo in all_dojos %}
+                        <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="weapon_of_choice">Weapon of Choice:</label>
+                <input type="text" name="weapon_of_choice" class="form-control">
+            </div>
+            <input type="submit" value="Add Ninja" class="btn btn-warning">
+        </form>
+        <div class="card col-6">
+            <div class="card-body">
+                <h2 class="card-title">All Ninjas</h2>
+                {% for ninja in all_ninjas %}
+                    <!-- <p class="card-text"><a href="/ninja/{{ ninja.id }}">{{ ninja.first_name }} {{ ninja.last_name }}</a></p> -->
+                    <p class="card-text">{{ ninja.first_name }} {{ ninja.last_name }}</p>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <a href="/dojos">Switch to: Add Dojo (Dojos)</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

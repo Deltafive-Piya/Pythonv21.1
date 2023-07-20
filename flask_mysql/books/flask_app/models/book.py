@@ -44,7 +44,8 @@ class Book:
             }
             book.authors_who_favorited.append(author.Author(data))
         return book
-
+    
+    #This method runs the query for Books Ninja bonus
     @classmethod
     def unfavorited_books(cls, data):
         query = "SELECT * FROM books WHERE books.id NOT IN (SELECT books_id FROM favorites WHERE authors_id = %(id)s );"
