@@ -12,7 +12,52 @@
 
 </head>
 <body>
-    <h1>My Headshop App</h1>
+    <!-- CONTENT -->
+    <div class="container">
+        <h1 class="text-center">Welcome to Dispensary User App!</h1>
+        <div class="d-flex justify-content-between">
+            <div>
+                <!-- Log in Form -->
+                <h2>Login</h2>
+                <form action="" method="post">
+                    <div class= "mb-3">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" name="name" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" id="password">
+                    </div>
+                    <button class="btn btn-success">Login</button>
+                </form>
+            </div>
+            <div>
+                <!-- Registration Form -->
+                <h2>Register</h2>
+                <!-- Before we ever login, we need to Register first, this logic beforehand -->
+                <!-- below form will call for the route "dispensary/create" within controller_headshop -->
+                <form action="headshop/create" method="post">
+                    <!-- representing name,city,cbd_only,password columns within headshops_db.dispensaries  -->
+                    <div class="mb-3">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" name="name" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="city">City</label>
+                        <input class="form-control" type="text" name="city" id="city">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cbd_only">CBD_Only</label>
+                        <input class="form-control" type="text" name="cbd_only" id="cbd_only">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="text" name="password" id="password">
+                    </div>
+                    <button class="btn btn-primary">Register Dispensary</button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- To include JS:
