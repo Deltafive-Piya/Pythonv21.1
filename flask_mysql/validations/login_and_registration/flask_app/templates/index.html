@@ -34,25 +34,37 @@
             <div>
                 <!-- Registration Form -->
                 <h2>Register</h2>
-                <!-- Before we ever login, we need to Register first, this logic beforehand -->
+                <!-- Before we ever login, we need to Register first, this logic beforehand --> 
                 <!-- below form will call for the route "dispensary/create" within controller_headshop -->
                 <form action="headshop/create" method="post">
                     <!-- representing name,city,cbd_only,password columns within headshops_db.dispensaries  -->
                     <div class="mb-3">
                         <label for="name">Name</label>
                         <input class="form-control" type="text" name="name" id="name">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_name']) %}
+                        <p class="err err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="city">City</label>
                         <input class="form-control" type="text" name="city" id="city">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_city']) %}
+                        <p class="err err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="cbd_only">CBD_Only</label>
                         <input class="form-control" type="text" name="cbd_only" id="cbd_only">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_cbd_only']) %}
+                        <p class="err err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="password">Password</label>
                         <input class="form-control" type="text" name="password" id="password">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_password']) %}
+                        <p class="err err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
                     <button class="btn btn-primary">Register Dispensary</button>
             </div>
