@@ -18,23 +18,24 @@ class Headshop:
         #Delete
 
         #validations
-        @staticmethod
-        def validate(data):
-            is_valid = True
+    @staticmethod
+    def validate(data):
+        is_valid = True
 
-            if len(data['name']) < 1:
-                is_valid = False
-                flash("Invalid Name", "err_dispensary_name")
+        if len(data['name']) < 1:
+            is_valid = False
+            flash("Invalid Name", "err_dispensary_name")
 
-            if len(data['city']) < 1:
-                is_valid = False
-                flash("Invalid Name", "err_dispensary_city")
+        if len(data['city']) < 1:
+            is_valid = False
+            flash("Invalid Name", "err_dispensary_city")
+
+        cbd_only_value = data.get('cbd_only')
+        if cbd_only_value not in ('0', '1'):
+            is_valid = False
+            flash("Please enter either '0' for no or '1' for yes", "err_dispensary_cbd_only")
+
+        if len(data['password']) < 1:
+            is_valid = False
             
-            if data['cbd_only'] > 1:
-                is_valid = False
-                flash("Please enter either '0' for no or '1' for yes", "err_dispensary_cbd_only")
-
-            if len(data['password']) < 1:
-                is_valid = False
-                
-            return is_valid
+        return is_valid

@@ -8,7 +8,7 @@ from flask_app.models.model_headshop import Headshop
 
 
 #create (action route)
-@app.route('/headshop/create')
+@app.route('/headshop/create', methods= ['POST'])
 def headshop_create():
     #clone the request dictionary
     data = {**request.form}
