@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Form Submission</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h2 class="text-center">User Location and Language Form</h2>
+    <div class="container mt-5">
+        <form method="post" action="/">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="dojo_location">Dojo Location:</label>
+                <input type="text" class="form-control" id="dojo_location" name="dojo_location" required>
+            </div>
+            <div class="form-group">
+                <label for="favorite_language">Favorite Language:</label>
+                <input type="text" class="form-control" id="favorite_language" name="favorite_language" required>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments:</label>
+                <textarea class="form-control" id="comments" name="comments" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
