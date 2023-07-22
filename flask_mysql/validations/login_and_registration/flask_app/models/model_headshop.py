@@ -22,6 +22,10 @@ class Headshop:
     def validate(data):
         is_valid = True
 
+        if (data['name']) == 'Snoop':
+            is_valid = False
+            flash("Nice try", "err_dispensary_name")
+
         if len(data['name']) < 1:
             is_valid = False
             flash("Invalid Name", "err_dispensary_name")
