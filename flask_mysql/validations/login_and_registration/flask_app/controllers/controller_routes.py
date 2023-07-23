@@ -4,3 +4,7 @@ from flask import render_template, redirect, session #render template; comes fro
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/dashboard')
+def dashboard():  
+    return render_template('dashboard.html')

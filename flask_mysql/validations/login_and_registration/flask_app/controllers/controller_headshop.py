@@ -22,6 +22,7 @@ def headshop_create():
     data['password'] = hash_pw
     # create the dispensary
     Headshop.create(data)
+    # This Dashboard will be created in controller_routes
     return redirect('/dashboard')
 
 # show
