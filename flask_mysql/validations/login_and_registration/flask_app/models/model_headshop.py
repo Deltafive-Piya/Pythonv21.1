@@ -1,8 +1,10 @@
 from flask import flash
+from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app import DATABASE
 
 class Headshop:
-    def __init__(self, data:dict):
-        #for all the columns in the headshops_db.dispensaries table 
+    def __init__(self, data: dict):
+        # Initialize attributes for all the columns in the headshops_db.dispensaries table
         self.id = data['id']
         self.name = data['name']
         self.city = data['city']
@@ -11,18 +13,25 @@ class Headshop:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-        #classsmethods
-        #Create
-        #Read
-        #Update
-        #Delete
+    @classmethod
+    def create(cls, data: dict):
+        # Query [ Study %()s- parameterized queries are used to securely pass data to DB w/o directly inserting the values into SQL query string.]
+        query = "INSERT INTO dispensaries (name, city, cbd_only, password) VALUES (%(name)s,%(city)s,%(cbd_only)s,%(password)s);" 
+        # Contact to db(brought to you by ln 5) and RUN!DAT! data! Specifically, here is where we correct the 'Headshops" nomenclature ->to "Dispensary"
+        dispensary_id = connectToMySQL(DATABASE).query_db(query, data)
+        # Return - Now that we have previously created the path to send and retrieve, let's make it work
+        return dispensary_id
 
-        #validations
+    # Read
+    # Update
+    # Delete
+
     @staticmethod
     def validate(data):
         is_valid = True
 
-        if (data['name']) == 'Snoop':
+        # --- Change 1: Removed unnecessary parentheses ---
+        if data['name'] == 'Snoop Dogg':
             is_valid = False
             flash("Nice try", "err_dispensary_name")
 

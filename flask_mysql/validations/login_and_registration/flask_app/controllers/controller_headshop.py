@@ -1,37 +1,33 @@
-from flask_app import app
+from flask_app import app, bcrypt
 from flask import render_template, redirect, session, request
 from flask_app.models.model_headshop import Headshop
+
 # this file contains headshop routes: login?,create,show,edit,update,delete
 
+# login?
 
-#login?
-
-
-#create (action route)
-@app.route('/headshop/create', methods= ['POST'])
+# create (action route)
+@app.route('/headshop/create', methods=['POST'])
 def headshop_create():
-    #clone the request dictionary
+    # clone the request dictionary
     data = {**request.form}
-    #validate-targets the object in model file
+    # validate - targets the object in the model file
     is_valid = Headshop.validate(data)
-    if is_valid == False:
+    if not is_valid:
         return redirect('/')
-    
-    #hash the password
 
-    #update the password in the data dictionary
-
-    #create the dispensary
-
+    # hash the password
+    hash_pw = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    # update the password in the data dictionary
+    data['password'] = hash_pw
+    # create the dispensary
+    Headshop.create(data)
     return redirect('/dashboard')
 
-#show
+# show
 
+# edit
 
-#edit
+# update
 
-
-#update
-
-
-#delete
+# delete
