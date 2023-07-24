@@ -1,8 +1,10 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app.models.recipe import Recipe
+from flask_app.models.model_recipe import Recipe
 from flask import flash
 import re
-
+# [a-zA-Z0-9.+_-]+  -- Matches occurrences of characters that can be either (A-Z), (a-z), (0-9), or special characters ., +, _, and -.
+# @ char that must exist in email addresses
+# \. --Matches the period character in the email address. Since . is a regex special character, escape with a backslash to treat it as a literal period.
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
@@ -20,8 +22,8 @@ class User:
 
     @classmethod
     def create(cls, data):
-        query="INSERT INTO users (first_name, last_name, email, password, created_at, updated_at)"\
-            "VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, NOW(), NOW())"
+        query="INSERT INTO users (first_name, last_name, email, password)"\
+            "VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
         result=connectToMySQL('recipes_schema').query_db(query, data)
         return result
 
@@ -64,40 +66,40 @@ class User:
         is_valid=True
 
         if 'first_name' not in data:
-            flash('*Please enter a first name', 'register_errors')
+            flash('Invalid first name', 'err_registration')
             is_valid=False
         elif len(data['first_name'])<2:
-            flash('*First name must be at least two characters', 'register_errors')
+            flash('Invalid characters', 'err_registration')
             is_valid=False
 
         if 'last_name' not in data:
-            flash('*Please enter a last name', 'register_errors')
+            flash('Invalid last name', 'err_registration')
             is_valid=False
         elif len(data['last_name'])<2:
-            flash('*Last name must be at least two characters', 'register_errors')
+            flash('Invalid characters', 'err_registration')
             is_valid=False
 
         if 'email' not in data:
-            flash('*Please enter an email address', 'register_errors')
+            flash('Invalid address', 'err_registration')
             is_valid=False
         elif not EMAIL_REGEX.match(data['email']):
-            flash('*Invalid email address', 'register_errors')
+            flash('*Invalid email address', 'err_registration')
             is_valid=False
         elif User.get_by_email(data):
-            flash(f"*{data['email']} is already in use on this site", 'register_errors')
+            flash(f"*{data['email']} already in use", 'err_registration')
             is_valid=False
 
         if 'password' not in data:
-            flash('*Please enter a password', 'register_errors')
+            flash('Invalid password', 'err_registration')
             is_valid=False
         elif 'confirm_password' not in data:
-            flash('*Please confirm your password', 'register_errors')
+            flash('Invalid password', 'err_registration')
             is_valid=False
         elif len(data['password'])<8:
-            flash('*Passwords must be at least eight characters', 'register_errors')
+            flash('Invalid characters', 'err_registration')
             is_valid=False
         elif data['password']!=data['confirm_password']:
-            flash('*Passwords do not match', 'register_errors')
+            flash('Invalid password confirmation', 'err_registration')
             is_valid=False
 
         return is_valid

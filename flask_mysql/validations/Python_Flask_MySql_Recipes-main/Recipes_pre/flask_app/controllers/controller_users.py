@@ -1,6 +1,6 @@
 from flask_app import app
-from flask_app.models.user import User
-from flask_app.models.recipe import Recipe   #added this import for recipe data needed for the get_all class
+from flask_app.models.model_user import User
+from flask_app.models.model_recipe import Recipe   #added this import for recipe data needed for the get_all class
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 from flask import render_template, redirect, request, session, flash
