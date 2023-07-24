@@ -1,10 +1,27 @@
-from flask_app import app, bcrypt
 from flask import render_template, redirect, session, request
+from flask_app import app, bcrypt
 from flask_app.models.model_headshop import Headshop
 
-# this file contains headshop routes: login?,create,show,edit,update,delete
+# this file contains headshop routes: login?,Logout,create,show,edit,update,delete
 
-# login?
+# login
+@app.route('/dispensary/login', methods=['POST'])
+def dispensary_login():
+    if request.method == 'POST':
+        data = {**request.form}
+        is_valid = Headshop.validate_login(data)
+        if not is_valid:
+            return redirect('/')
+        return redirect('/dashboard')
+    else:
+        # In case the route is accessed through GET method, redirect to the homepage
+        return redirect('/')
+
+# Logout
+@app.route('/dispensary/logout')
+def dispensary_logout():
+    del session['dispensary_id']
+    return redirect('/')
 
 # create (action route)
 @app.route('/headshop/create', methods=['POST'])
@@ -21,8 +38,9 @@ def headshop_create():
     # update the password in the data dictionary
     data['password'] = hash_pw
     # create the dispensary
-    Headshop.create(data)
-    # This Dashboard will be created in controller_routes
+    id = Headshop.create(data)
+    session['dispensary_id'] = id
+    # This Dashboard is created in controller_routes
     return redirect('/dashboard')
 
 # show

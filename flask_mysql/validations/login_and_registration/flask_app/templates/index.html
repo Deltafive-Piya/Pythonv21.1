@@ -19,24 +19,31 @@
             <div>
                 <!-- Log in Form -->
                 <h2>Login</h2>
-                <form action="" method="post">
-                    <div class= "mb-3">
+                <form action="/dispensary/login" method="post"> <!-- Update the method to "post" -->
+                    <div class="mb-3">
                         <label for="name">Name</label>
                         <input class="form-control" type="text" name="name" id="name">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_name']) %}
+                        <p class="text-danger err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="password">Password</label>
                         <input class="form-control" type="password" name="password" id="password">
+                        {% for message in get_flashed_messages(category_filter=['err_dispensary_password']) %}
+                        <p class="text-danger err-msg">{{message}}</p>
+                        {% endfor %}
                     </div>
-                    <button class="btn btn-success">Login</button>
+                    <button class="btn btn-success" type="submit">Login</button>
+                    <!-- Add "type="submit"" to make it a submit button -->
                 </form>
             </div>
             <div>
                 <!-- Registration Form -->
                 <h2>Register</h2>
-                <!-- Before we ever login, we need to Register first, this logic beforehand --> 
+                <!-- Before we ever login, we need to Register first, this logic beforehand -->
                 <!-- below form will call for the route "dispensary/create" within controller_headshop -->
-                <form action="headshop/create" method="post">
+                <form action="/headshop/create" method="post">
                     <!-- representing name,city,cbd_only,password columns within headshops_db.dispensaries  -->
                     <div class="mb-3">
                         <label for="name">Name</label>
