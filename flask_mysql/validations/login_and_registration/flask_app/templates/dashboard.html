@@ -14,13 +14,17 @@
 <body>
     <div class="container">
         <!-- TITLE -->
-        <div class="d-flex justify-content-center">
-            <h1>Dispensary Network</h1>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <h1>Dispensary Network- Dashboard</h1>
+            <p><strong>name : </strong>{{ dispensary.name }}</p>
+            <p><strong>city : </strong>{{ dispensary.city }}</p>
+            <p><strong>CBD_only? : </strong>{{ dispensary.cbd_only }}</p>
+            <p><strong>hashed pass : </strong>{{ dispensary.password }}</p>
         </div>
         <!-- NAVBAR -->
         <nav>
             <ul class="d-flex justify-content-evenly">
-                <li>Home</li>
+                <li><a href="/" class="btn btn-success">Home</a></li>
                 <!-- <li>Add Dispensary</li> -->
                 <li><a href="/dispensary/logout" class="btn btn-danger">Logout</a></li>
             </ul>

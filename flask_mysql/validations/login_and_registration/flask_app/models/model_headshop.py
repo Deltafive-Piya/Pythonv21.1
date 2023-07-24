@@ -1,6 +1,6 @@
-from flask import flash
+from flask import flash, session
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app import DATABASE
+from flask_app import DATABASE, bcrypt
 
 class Headshop:
     def __init__(self, data: dict):
@@ -23,6 +23,26 @@ class Headshop:
         return dispensary_id
 
     # Read
+    @classmethod
+    def get_one(cls, data: dict):
+        query = "SELECT * FROM dispensaries WHERE id = %(id)s;"
+
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if not results:
+            return False
+        #convert the results into instance and return
+        return cls( results[0] )
+    
+    @classmethod
+    def get_one_by_name(cls, data: dict):
+        query = "SELECT * FROM dispensaries WHERE name = %(name)s;"
+
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if not results:
+            return False
+        #convert the results into instance and return
+        return cls( results[0] )
+    
     # Update
     # Delete
 
@@ -31,6 +51,7 @@ class Headshop:
         is_valid = True
 
         # --- Change 1: Removed unnecessary parentheses ---
+        
         if data['name'] == 'Snoop Dogg':
             is_valid = False
             flash("Nice try", "err_dispensary_name")
@@ -41,7 +62,7 @@ class Headshop:
 
         if len(data['city']) < 1:
             is_valid = False
-            flash("Invalid Name", "err_dispensary_city")
+            flash("Invalid City", "err_dispensary_city")
 
         cbd_only_value = data.get('cbd_only')
         if cbd_only_value not in ('0', '1'):
@@ -50,7 +71,14 @@ class Headshop:
 
         if len(data['password']) < 1:
             is_valid = False
-            
+
+        # Check if the name already exists in the database (including the current request data)
+        if is_valid:
+            potential_dispensary = Headshop.get_one_by_name({'name': data['name']})
+            if potential_dispensary:
+                is_valid = False
+                flash("Name already exists", "err_dispensary_name")
+
         return is_valid
     
     @staticmethod
@@ -63,7 +91,22 @@ class Headshop:
 
         if len(data['password']) < 1:
             is_valid = False
-            flash("Invalid credentials", "err_dispensary_password")  # Updated error message key
+            flash("Invalid credentials", "err_dispensary_password")
 
-            
+        if is_valid:
+            potential_dispensary = Headshop.get_one_by_name({'name': data['name']})
+
+            if not potential_dispensary:
+                is_valid = False
+                flash("Invalid Credentials", "err_dispensary_name")
+            else:
+                # Use the correct hashed password from the potential_dispensary object
+                hashed_password = potential_dispensary.password
+                # Check if the provided password matches the hashed password
+                has_passed = bcrypt.check_password_hash(hashed_password, data['password'])
+                if not has_passed:
+                    flash("Invalid Credentials", "err_dispensary_name")
+                else:
+                    session['dispensary_id'] = potential_dispensary.id
+
         return is_valid
