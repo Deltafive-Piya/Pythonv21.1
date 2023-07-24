@@ -27,7 +27,7 @@ class Headshop:
     # Delete
 
     @staticmethod
-    def validate(data):
+    def validate(data: dict):
         is_valid = True
 
         # --- Change 1: Removed unnecessary parentheses ---
@@ -50,5 +50,20 @@ class Headshop:
 
         if len(data['password']) < 1:
             is_valid = False
+            
+        return is_valid
+    
+    @staticmethod
+    def validate_login(data:dict):
+        is_valid = True
+
+        if len(data['name']) < 1:
+            is_valid = False
+            flash("Invalid credentials", "err_dispensary_name")
+
+        if len(data['password']) < 1:
+            is_valid = False
+            flash("Invalid credentials", "err_dispensary_password")  # Updated error message key
+
             
         return is_valid
