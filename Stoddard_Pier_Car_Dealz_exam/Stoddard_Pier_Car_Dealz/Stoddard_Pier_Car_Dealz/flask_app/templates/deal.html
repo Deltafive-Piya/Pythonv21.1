@@ -14,34 +14,38 @@
 <body>
     <div class="container p-4 bg-light">
         <div class='d-flex align-items-center justify-content-between'>
-            <h1>Welcome {{user.first_name}}</h1>
+            <h1>Welcome {{seller.first_name}}</h1>
             <div>
-                <a class='btn btn-primary' href='/dashboard'>Back to Recipe Book</a>
+                <a class='btn btn-primary' href='/dashboard'>Back to Deal Book</a>
                 <a class='btn btn-danger' href='/logout'>Logout</a>
             </div>
         </div>
-        <h2>{{recipe.name}}</h2>
+        <h2>{{deal.name}}</h2>
         <table class="table">
             <tbody>
                 <tr>
-                    <td>directions:</td>
-                    <td>{{recipe.directions}}</td>
+                    <td>Model:</td>
+                    <td>{{deal.model}}</td>
+                    <td>Price</td>
+                    <td>{{deal.price}}</td>
+                    <td>Make:</td>
+                    <td>{{deal.make}}</td>
                 </tr>
                 <tr>
-                    <td>Prep less than 30 Min?:</td>
-                    {% if recipe.purchased==1: %}
+                    <td>Purchased?:</td>
+                    {% if deal.purchased==1: %}
                     <td>Yes</td>
                     {% else: %}
                     <td>No</td>
                     {% endif %}
                 </tr>
                 <tr>
-                    <td>Instructions:</td>
-                    <td>{{recipe.instructions}}</td>
+                    <td>Details:</td>
+                    <td>{{deal.description}}</td>
                 </tr>
                 <tr>
                     <td>Date Made:</td>
-                    <td>{{recipe.date_made}}</td>
+                    <td>{{deal.created_at}}</td>
                 </tr>
             </tbody>
         </table>

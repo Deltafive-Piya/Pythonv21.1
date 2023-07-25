@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app.models.model_recipe import Recipe
+from flask_app.models.model_deal import Deal
 from flask import flash
 import re
 # [a-zA-Z0-9.+_-]+  -- Matches occurrences of characters that can be either (A-Z), (a-z), (0-9), or special characters ., +, _, and -.
@@ -8,7 +8,7 @@ import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
-class User:
+class Seller:
     def __init__(self, data):
         self.id=data['id']
         self.first_name=data['first_name']
@@ -17,44 +17,44 @@ class User:
         self.password=data['password']
         self.created_at=data['created_at']
         self.updated_at=data['updated_at']
-        self.recipes=[]
+        self.deals=[]
 
 
     @classmethod
     def create(cls, data):
-        query="INSERT INTO users (first_name, last_name, email, password)"\
+        query="INSERT INTO sellers (first_name, last_name, email, password)"\
             "VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)"
-        result=connectToMySQL('recipes_schema').query_db(query, data)
+        result=connectToMySQL('deals_db').query_db(query, data)
         return result
 
 
     @classmethod
     def get_one(cls, data):
-        query="SELECT * FROM users "\
-            "LEFT JOIN recipes ON users.id=recipes.user_id "\
-            "WHERE users.id=%(id)s;"
-        results=connectToMySQL('recipes_schema').query_db(query, data)
-        user=cls(results[0])
-        if results[0]['recipes.id']!=None:
+        query="SELECT * FROM sellers "\
+            "LEFT JOIN deals ON sellers.id=deals.seller_id "\
+            "WHERE sellers.id=%(id)s;"
+        results=connectToMySQL('deals_db').query_db(query, data)
+        seller=cls(results[0])
+        if results:
             for row in results:
                 row_data={
-                    'id':row['recipes.id'],
-                    'name':row['name'],
-                    'directions':row['directions'],
-                    'purchased':row['purchased'],
-                    'instructions':row['instructions'],
-                    'date_made':row['date_made'],
-                    'created_at':row['recipes.created_at'],
-                    'updated_at':row['recipes.updated_at']
+                    'id':row['deals.id'],
+                    'model':row['model'],
+                    'price':row['price'],
+                    'make':row['make'],
+                    'year':row['year'],
+                    'description':row['description'],
+                    'created_at':row['deals.created_at'],
+                    'updated_at':row['deals.updated_at']
                 }
-                user.recipes.append(Recipe(row_data))
-        return user
+                seller.deals.append(Deal(row_data))
+        return seller
 
 
     @classmethod
     def get_by_email(cls, data):
-        query="SELECT * FROM users WHERE email=%(email)s;"
-        result=connectToMySQL('recipes_schema').query_db(query, data)
+        query="SELECT * FROM sellers WHERE email=%(email)s;"
+        result=connectToMySQL('deals_db').query_db(query, data)
         print(result)
         if len(result)<1:
             return False
@@ -68,6 +68,7 @@ class User:
         if 'first_name' not in data:
             flash('Invalid first name', 'err_registration')
             is_valid=False
+            #first name length validation
         elif len(data['first_name'])<2:
             flash('Invalid characters', 'err_registration')
             is_valid=False
@@ -75,6 +76,7 @@ class User:
         if 'last_name' not in data:
             flash('Invalid last name', 'err_registration')
             is_valid=False
+            #last name length validation
         elif len(data['last_name'])<2:
             flash('Invalid characters', 'err_registration')
             is_valid=False
@@ -82,10 +84,11 @@ class User:
         if 'email' not in data:
             flash('Invalid address', 'err_registration')
             is_valid=False
+            #email entry validation
         elif not EMAIL_REGEX.match(data['email']):
             flash('*Invalid email address', 'err_registration')
             is_valid=False
-        elif User.get_by_email(data):
+        elif Seller.get_by_email(data):
             flash(f"*{data['email']} already in use", 'err_registration')
             is_valid=False
 

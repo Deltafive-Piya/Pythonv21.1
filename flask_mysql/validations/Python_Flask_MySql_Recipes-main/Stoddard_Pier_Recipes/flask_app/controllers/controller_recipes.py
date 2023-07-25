@@ -26,7 +26,7 @@ def create_recipe():
     data={
         'name':request.form['name'],
         'directions':request.form['directions'],
-        'less_than_30':request.form['less_than_30'],
+        'purchased':request.form['purchased'],
         'instructions':request.form['instructions'],
         'date_made':request.form['date_made'],
         'user_id':session['id']
@@ -55,7 +55,7 @@ def update_recipe(id):
         'id':id,
         'name':request.form['name'],
         'directions':request.form['directions'],
-        'less_than_30':request.form['less_than_30'],
+        'purchased':request.form['purchased'],
         'instructions':request.form['instructions'],
         'date_made':request.form['date_made']
     }

@@ -8,7 +8,7 @@ class Recipe:
         self.id=data['id']
         self.name=data['name']
         self.directions=data['directions']
-        self.less_than_30=data['less_than_30']
+        self.purchased=data['purchased']
         self.instructions=data['instructions']
         self.date_made=data['date_made'].date()
         self.created_at=data['created_at']
@@ -19,8 +19,8 @@ class Recipe:
 
     @classmethod
     def create(cls, data):
-        query="INSERT INTO recipes (name, directions, instructions, less_than_30, date_made, user_id, created_at, updated_at)"\
-            "VALUES (%(name)s, %(directions)s, %(instructions)s, %(less_than_30)s, %(date_made)s, %(user_id)s, NOW(), NOW())"
+        query="INSERT INTO recipes (name, directions, instructions, purchased, date_made, user_id, created_at, updated_at)"\
+            "VALUES (%(name)s, %(directions)s, %(instructions)s, %(purchased)s, %(date_made)s, %(user_id)s, NOW(), NOW())"
         result=connectToMySQL('recipes_schema').query_db(query, data)
         return result
 
@@ -48,7 +48,7 @@ class Recipe:
     def update(cls, data):
         query="UPDATE recipes "\
             "SET name=%(name)s, directions=%(directions)s, "\
-            "instructions=%(instructions)s, less_than_30=%(less_than_30)s, "\
+            "instructions=%(instructions)s, purchased=%(purchased)s, "\
             "date_made=%(date_made)s, updated_at=NOW() "\
             "WHERE id=%(id)s;"
         result=connectToMySQL('recipes_schema').query_db(query, data)
@@ -88,10 +88,10 @@ class Recipe:
             flash('*Instructions must be at least three characters', 'create_errors')
             is_valid=False
 
-        if 'less_than_30' not in data:
+        if 'purchased' not in data:
             flash('*Must select a valid checkbox', 'create_errors')
             is_valid=False
-        elif data['less_than_30']!='0' and data['less_than_30']!='1':
+        elif data['purchased']!='0' and data['purchased']!='1':
             flash('*Must select a valid checkbox', 'create_errors')
             is_valid=False
 
